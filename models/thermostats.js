@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
 const ThermostatSchema = new mongoose.Schema({
-    hot: int,
-    not: int,
-    image: string
+    hot: Number,
+    not: Number,
+    image: String
 })
 
 

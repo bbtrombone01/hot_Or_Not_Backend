@@ -1,35 +1,31 @@
-// const { config } = require('dotenv')
-// const { json } = require('express')
+const express = require ('express');
+const routes = require('./routes/thermostats'); // import the routes
 
-const express = require('express')
+
+require('dotenv').config();
+
 
 const mongoose = require('mongoose')
 
-require('dotenv'),config
+const app = express();
 
-const routes = require(`./routes/thermostat`)
+app.use(express.json());
 
-const app = express()
+app.use('/', routes); //to use the routes
+
+const listener = app.listen(process.env.PORT || 3000, () => {
+    console.log('Your app is listening on port ' + listener.address().port)
+})
 
 
-app.use(express,json())
-
-app.use('/', routes)
-
- //import mongoose
 
  //establish connection to database
  mongoose.connect(
-    process.env.MONGODB_URI ,
-     { useFindAndModify: false, useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true},
+    process.env.MONGODB_URI,
+     {  useUnifiedTopology: true, useNewUrlParser: true},
      (err) => {
          if (err) return console.log("Error: ", err);
          console.log("MongoDB Connection -- Ready state is:", mongoose.connection.readyState);
      }
  );
  
-
-
-const listener = app.listen(process.env.Port || 3000 ,()=>{
-    console.log("hello wolrd")
-})

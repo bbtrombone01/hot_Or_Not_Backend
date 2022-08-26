@@ -17,6 +17,7 @@ const listener = app.listen(process.env.PORT || 3000, () => {
     console.log('Your app is listening on port ' + listener.address().port)
 })
 
+app.use('/uploads', express.static('./uploads'));
 
 
  //establish connection to database

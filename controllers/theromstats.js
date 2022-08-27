@@ -18,10 +18,6 @@ const storage = multer.diskStorage({
 const uploadImg = multer({storage: storage}).single('image');
 
 
-
-
-
-// 
 const newThermostats = (req, res, next) => {
 
   postThermostats = new Thermostat ({

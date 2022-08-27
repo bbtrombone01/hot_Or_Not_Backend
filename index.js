@@ -7,7 +7,17 @@ require('dotenv').config();
 
 const mongoose = require('mongoose')
 
+
+const helmet = require('helmet');
+
+const compression = require('compression');
+
 const app = express();
+
+app.use(compression())
+
+app.use(helmet());
+
 
 app.use(express.json());
 
@@ -23,7 +33,15 @@ app.use('/uploads', express.static('./uploads'));
  //establish connection to database
  mongoose.connect(
     process.env.MONGODB_URI,
-     {  useUnifiedTopology: true, useNewUrlParser: true},
+     {  useUnifiedTopology: true, 
+        useNewUrlParser: true,
+        server: { 
+            socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } 
+         }, 
+         replset: {
+            socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } 
+         }
+    },
      (err) => {
          if (err) return console.log("Error: ", err);
          console.log("MongoDB Connection -- Ready state is:", mongoose.connection.readyState);

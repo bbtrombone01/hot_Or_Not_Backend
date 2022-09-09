@@ -77,11 +77,19 @@ function randomizeThermoStats(array){
 
 function updateThermostats (reg,res,next){
 
+
+
     Thermostat.findOneAndUpdate({image:`uploads/${reg.body.image}`}, 
-    {hot: reg.body.hot, not: reg.body.not}, 
+
+    {hot: reg.body.hot, not: reg.body.not}, {new: true},
+
+
     (err,data)=>{
+
       if(err) return res.json({Error: err})
+
       return res.json(data)
+
     })
 
 }
